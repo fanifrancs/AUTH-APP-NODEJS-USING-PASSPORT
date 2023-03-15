@@ -16,7 +16,8 @@ const connectDb = require('./db/connect')
 const route = require('./Router/userrouter')
 const pages = require('./Router/pages')
 const settingsRoute = require('./Router/settings')
-const addCandidateRoute = require('./Router/votePolls')
+const candidateReg = require('./Router/candidates')
+
 
 app.use(express.static('./public'))
 app.use(express.json())
@@ -38,7 +39,7 @@ app.use(cors())
 app.use(helmet())
 
 //route
-app.use('/api/v1', addCandidateRoute)
+app.use('/api/v1',candidateReg)
 app.use('/api/v1', settingsRoute)
 app.use('/api/v1', route)
 app.use('/user', pages)

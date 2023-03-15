@@ -3,8 +3,6 @@ const bcrypt = require('bcryptjs')
 const validator = require('validator')
 
 
-
-
 const userSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -31,20 +29,25 @@ const userSchema = new mongoose.Schema({
         enum:['admin','user'],
         default:'user'
     },
+    country: {
+        type: String,
+        required: true
+    },
+    state: {
+        type:mongoose.Types.ObjectId,
+        ref:'State',
+        default:true
+    },
+  
+    NIN:{
+        type:String,
+        required:true,
+        unique:true
+    },
     verificationToken:String,
     
-    // isVerified:{
-    //     type:Boolean,
-    //     default:false
-    // },
     verified:Date,
-
-    hasVoted:{
-        type:Boolean,
-        default:false
-    }
-})
-
+});
 
 
 userSchema.pre('save', async function () {
@@ -61,7 +64,10 @@ userSchema.methods.validatePassword = async function (password) {
 }
 
 
-
+// isVerified:{
+    //     type:Boolean,
+    //     default:false
+    // },
 
 
 module.exports = mongoose.model('UserSchema', userSchema)

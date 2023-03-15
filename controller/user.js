@@ -12,8 +12,8 @@ const { createTokenUser, attachCookiesToResponse } = require('../utils/index')
 
 module.exports = {
 
-    getWelcomePage: async(req,res)=>{
-     
+    getWelcomePage: async (req, res) => {
+
         res.render('register')
 
     },
@@ -21,7 +21,7 @@ module.exports = {
 
     registerUser: async (req, res) => {
 
-        const { name, email, password, password2 } = req.body
+        const { name, email, password, password2, localGovernment, state } = req.body
 
         const chechUser = await User.findOne({ email })
 
@@ -29,7 +29,7 @@ module.exports = {
             throw new customError.BadRequestError('user email already exists')
         }
 
-        if (!name || !email || !password || !password2) {
+        if (!name || !email || !password || !password2 || !localGovernment || !state) {
             throw new customError.BadRequestError('please provide valid credentials')
         }
 
@@ -46,13 +46,13 @@ module.exports = {
         const adminUser = (((await User.countDocuments({}) === 0)));
         const role = adminUser ? "admin" : "user"
 
-       
 
-        const user = await User.create({ name, email, password, role, tokenVerification })
+
+        const user = await User.create({ name, email, password, role, state, localGovernment, tokenVerification })
 
         // verify
 
-        res.status(StatusCodes.OK).json(response({ msg:`${user.name} have been logged in successfully`}))
+        res.status(StatusCodes.OK).json(response({ msg: `${user.name} have been logged in successfully` }))
 
     },
 
