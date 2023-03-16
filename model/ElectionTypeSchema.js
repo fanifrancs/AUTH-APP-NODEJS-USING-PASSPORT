@@ -10,11 +10,16 @@ const ElectionTypes = new mongoose.Schema({
     },
 
     beginAt: {
-        type: Date,
+        type: String,
+        required:true
     },
 
     endAt:{
-        type:Date,
+        type:String,
+        required:true
+    },
+    status:{
+        type:String
     }
 })
 

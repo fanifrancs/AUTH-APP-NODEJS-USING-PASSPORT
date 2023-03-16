@@ -12,7 +12,7 @@ const stateSchema = new mongoose.Schema({
     required: true,
     unique: true
   
-  }]
+  } || null]
 }, { timestamps: true });
 
 module.exports = mongoose.model('State', stateSchema);
