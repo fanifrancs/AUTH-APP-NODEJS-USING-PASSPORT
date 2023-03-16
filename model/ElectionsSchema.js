@@ -7,17 +7,18 @@ const Elections = new mongoose.Schema({
         ref: 'electionType',
         default: true
     },
-
-    state: {
+    candidateID:{
         type: mongoose.Types.ObjectId,
-        ref: 'State',
+        ref: 'candidate',
         default: true
     },
 
-    date: {
-        type: Date,
-        default: Date.now
-    }
+    // state: {
+    //     type: mongoose.Types.ObjectId,
+    //     ref: 'State',
+    //     default: true
+    // },
+  
 })
 
 

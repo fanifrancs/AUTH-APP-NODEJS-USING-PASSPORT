@@ -1,28 +1,37 @@
 const mongoose = require('mongoose')
 
 const ElectionInfo = new mongoose.Schema({
-
-    party: {
+    name: {
         type: String,
-        required:true
+        required: true
 
     },
+
     votersId: {
         type: String,
         required: true
     },
-    voteDate: {
-        type: Date,
-        default: date.now
-    },
+
     electionType: {
-        type: string,
+        type: mongoose.Types.ObjectId,
+        ref: 'Election'
+    },
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: 'user',
         required: true
     },
-    user:{
-        type:mongoose.Types.ObjectId,
-        ref:'user',
-        required:true
+    candidateId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'candidate',
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 
 })
+
+
+module.exports = mongoose.model('CastVote',ElectionInfo)

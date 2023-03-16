@@ -21,7 +21,7 @@ module.exports = {
 
     registerUser: async (req, res) => {
 
-        const { name, email, password, password2, localGovernment, state } = req.body
+        const { name, email, password, password2, state, country, NIN } = req.body
 
         const chechUser = await User.findOne({ email })
 
@@ -29,7 +29,7 @@ module.exports = {
             throw new customError.BadRequestError('user email already exists')
         }
 
-        if (!name || !email || !password || !password2 || !localGovernment || !state) {
+        if (!name || !email || !password || !password2  || !state || !country || !NIN) {
             throw new customError.BadRequestError('please provide valid credentials')
         }
 
@@ -48,7 +48,7 @@ module.exports = {
 
 
 
-        const user = await User.create({ name, email, password, role, state, localGovernment, tokenVerification })
+        const user = await User.create({ name, email, password, role, state, country, NIN, tokenVerification })
 
         // verify
 

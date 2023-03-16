@@ -10,6 +10,9 @@ const { AddStates, getAllState, removeState, updateStateInfo } = require('../con
 
 const { AddElection, getAllElections, getSingleElection, updateElection, removeElection } = require('../controller/AddElectionType')
 
+
+const {oyaVote} = require('../controller/Vote')
+
 //candiates
 
 router.route('/add').post(authenticateUser, checkPermission("admin"), registerCandidate)
@@ -29,13 +32,14 @@ router.route('/updateState/:id').patch(authenticateUser, checkPermission("admin"
 
 
 //Elections
-
-router.route('/addElection').post(authenticateUser, checkPermission("admin"), AddElection)
 router.route('/allElection').get(authenticateUser, getAllElections)
+router.route('/addElection').post(authenticateUser, checkPermission("admin"), AddElection)
 router.route('/SingleElection/:id').get(authenticateUser, checkPermission("admin"), getSingleElection)
 router.route('/SingleElection/:id').patch(authenticateUser, checkPermission("admin"), updateElection)
 router.route('/SingleElection/:id').delete(authenticateUser, checkPermission("admin"), removeElection)
 
 
+
+router.route('/user/vote').post(authenticateUser,oyaVote)
 
 module.exports = router

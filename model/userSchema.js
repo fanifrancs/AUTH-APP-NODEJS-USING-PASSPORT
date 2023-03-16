@@ -30,13 +30,13 @@ const userSchema = new mongoose.Schema({
         default:'user'
     },
     country: {
-        type: String,
-        required: true
-    },
-    state: {
         type:mongoose.Types.ObjectId,
         ref:'State',
         default:true
+    },
+    state: {
+        type:String,
+        required:true,
     },
   
     NIN:{
