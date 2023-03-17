@@ -65,7 +65,7 @@ const countVote = async (req, res) => {
             };
         }
 
-        return res.status(StatusCodes.CREATED).json(response({ data: voteCounts }));
+        return res.status(StatusCodes.OK).json(response({ data: voteCounts }));
 
     } catch (error) {
         console.log(console.error)
