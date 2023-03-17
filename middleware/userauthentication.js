@@ -28,7 +28,7 @@ const authenticateUser = async (req, res, next) => {
         })
 
 
-        if (!checkRefreshToken && checkRefreshToken?.isValid) {
+        if (!checkRefreshToken && !checkRefreshToken?.isValid) {
             throw new customError.UnauthenticatedError('invalid authentication')
         }
 
