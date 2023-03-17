@@ -99,8 +99,26 @@ module.exports = {
         }
 
 
+    
+
+
         await tokenModel.create(tokenUser)
         attachCookiesToResponse({ res, user: tokenuser, refreshToken })
+        
+
+          //Am coming back to it
+
+        // if (checkToken && checkToken.userAgent !== userAgent) {
+
+        //     //sendMail
+            
+        //     await tokenModel.updateOne(
+        //       { user: user._id },
+        //       { $set: { userAgent } }
+        //     );
+        //   }
+
+
         res.status(StatusCodes.OK).json(response({ data: tokenuser }))
 
     },
