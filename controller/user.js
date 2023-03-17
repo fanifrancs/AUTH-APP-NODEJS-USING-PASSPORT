@@ -12,12 +12,6 @@ const { createTokenUser, attachCookiesToResponse } = require('../utils/index')
 
 module.exports = {
 
-    getWelcomePage: async (req, res) => {
-
-        res.render('register')
-
-    },
-
 
     registerUser: async (req, res) => {
 
@@ -29,7 +23,7 @@ module.exports = {
             throw new customError.BadRequestError('user email already exists')
         }
 
-        if (!name || !email || !password || !password2  || !state || !country || !NIN) {
+        if (!name || !email || !password || !password2 || !state || !country || !NIN) {
             throw new customError.BadRequestError('please provide valid credentials')
         }
 
@@ -115,6 +109,8 @@ module.exports = {
         res.status(StatusCodes.OK).json(response({ data: tokenuser }))
 
     },
+
+    
 
     logout: async (req, res) => {
         await tokenModel.findOneAndDelete(req.user.userId)

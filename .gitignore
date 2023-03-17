@@ -1,4 +1,4 @@
 /node_modules
 .env
 
-await connectDb("mongodb://0.0.0.0:27017/AUTH_PASSPORT")
+
