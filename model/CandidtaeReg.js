@@ -15,7 +15,7 @@ const candidateRegistration = new mongoose.Schema({
     },
     candidateImage: {
         type: String,
-        default: '/upload/pics/'
+        default: '/uploads/example.jpeg'
     },
     electionType: {
         type: String,

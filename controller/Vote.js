@@ -1,5 +1,4 @@
 const User = require('../model/userSchema')
-const State = require('../model/State')
 const Voting = require('../model/VotersVotes')
 const customError = require('../errors')
 const response = require('../response/response')
@@ -82,7 +81,4 @@ module.exports = {
 }
 
 
-// const sortedVoteCounts = Object.fromEntries(
-//     Object.entries(voteCounts).sort(([, a], [, b]) => b.voteCount - a.voteCount)
-// );
-// ;
+q

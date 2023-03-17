@@ -39,7 +39,7 @@ router.route('/SingleElection/:id').get(authenticateUser, checkPermission("admin
 router.route('/SingleElection/:id').patch(authenticateUser, checkPermission("admin"), updateElection)
 router.route('/SingleElection/:id').delete(authenticateUser, checkPermission("admin"), removeElection)
 
-
+//oya Vote
 
 router.route('/user/vote').post(authenticateUser,oyaVote)
 router.route('/user/count').get(authenticateUser,countVote)
