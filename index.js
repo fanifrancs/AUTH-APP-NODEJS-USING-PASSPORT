@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'development') {
 
     app.use(morgan('dev'))
 }
