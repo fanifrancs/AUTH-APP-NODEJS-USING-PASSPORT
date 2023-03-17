@@ -25,7 +25,7 @@ const oyaVote = async (req, res) => {
         throw new customError.NotFoundError('Oops, there is no candidate found')
     }
 
-    const hasVoted = await Voting.findOne({ candidateId })
+    const hasVoted = await Voting.findOne({ user: req.user.userId })
 
     if (hasVoted) {
         throw new customError.NotFoundError('You have already voted')
@@ -50,8 +50,39 @@ const oyaVote = async (req, res) => {
 
 }
 
+const countVote = async (req, res) => {
+    try {
+        const candidates = await Candidate.find({}, '_id partyName candidateImage');
+        const voteCounts = {};
+
+        for (const candidate of candidates) {
+            const candidateId = candidate._id;
+            const voteCount = await Voting.countDocuments({ candidateId });
+            voteCounts[candidateId] = {
+                voteCount,
+                partyName: candidate.partyName,
+                image: candidate.candidateImage
+            };
+        }
+
+        return res.status(StatusCodes.CREATED).json(response({ data: voteCounts }));
+
+    } catch (error) {
+        console.log(console.error)
+    }
+};
+
+
+
 
 
 module.exports = {
-    oyaVote
+    oyaVote,
+    countVote
 }
+
+
+// const sortedVoteCounts = Object.fromEntries(
+//     Object.entries(voteCounts).sort(([, a], [, b]) => b.voteCount - a.voteCount)
+// );
+// ;

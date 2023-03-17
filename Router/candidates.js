@@ -11,7 +11,8 @@ const { AddStates, getAllState, removeState, updateStateInfo } = require('../con
 const { AddElection, getAllElections, getSingleElection, updateElection, removeElection } = require('../controller/AddElectionType')
 
 
-const {oyaVote} = require('../controller/Vote')
+const {oyaVote,countVote} = require('../controller/Vote')
+
 
 //candiates
 
@@ -41,5 +42,6 @@ router.route('/SingleElection/:id').delete(authenticateUser, checkPermission("ad
 
 
 router.route('/user/vote').post(authenticateUser,oyaVote)
+router.route('/user/count').get(authenticateUser,countVote)
 
 module.exports = router
