@@ -8,8 +8,6 @@ const { createTokenUser, attachCookiesToResponse } = require('../utils/index')
 
 
 
-
-
 module.exports = {
 
 
@@ -43,9 +41,7 @@ module.exports = {
 
 
         const user = await User.create({ name, email, password, role, state, country, NIN, tokenVerification })
-
         // verify
-
         res.status(StatusCodes.OK).json(response({ msg: `${user.name} have been logged in successfully` }))
 
     },
@@ -110,7 +106,7 @@ module.exports = {
 
     },
 
-    
+
 
     logout: async (req, res) => {
         await tokenModel.findOneAndDelete(req.user.userId)

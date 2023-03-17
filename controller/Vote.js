@@ -73,12 +73,9 @@ const countVote = async (req, res) => {
 
 
 
-
-
 module.exports = {
     oyaVote,
     countVote
 }
 
 
-q

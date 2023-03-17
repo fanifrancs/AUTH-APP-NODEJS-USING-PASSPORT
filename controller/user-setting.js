@@ -36,7 +36,8 @@ const updatePassword = async (req, res) => {
 
     }else{
        
-         res.send('error')
+        res.status(StatusCodes.OK).json(response({msg:'An error occured while updating the user',data:error.message}))
+
     }
 
   
