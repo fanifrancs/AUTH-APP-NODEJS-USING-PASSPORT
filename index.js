@@ -55,7 +55,7 @@ app.use('/api/v1', route)
 
 const start = async () => {
 
-    await connectDb('mongodb://0.0.0.0:27017/AUTH_NODE')
+    await connectDb(process.env.MONGO_URI)
 
     app.listen(port, () => console.log(`app is listening on port ${port}`))
 
