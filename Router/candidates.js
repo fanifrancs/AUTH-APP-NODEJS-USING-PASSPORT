@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { registerCandidate, getAllCandidate, getSingleCandidate, updateCandidateInfo, deleteCandidate } = require('../controller/createCandidate')
+const { registerCandidate, getAllCandidate, uploadPictures, getSingleCandidate, updateCandidateInfo, deleteCandidate } = require('../controller/createCandidate')
 
 const { authenticateUser, checkPermission } = require('../middleware/userauthentication')
 
@@ -12,6 +12,8 @@ const { AddElection, getAllElections, getSingleElection, updateElection, removeE
 
 
 const { oyaVote, countVote } = require('../controller/Vote')
+
+const multer = require('../utils/multer')
 
 
 //candiates
@@ -28,6 +30,11 @@ router.route('/allStates').get(authenticateUser, checkPermission("admin"), getAl
 router.route('/addState').post(authenticateUser, checkPermission("admin"), AddStates)
 router.route('/removeState/:id').delete(authenticateUser, checkPermission("admin"), removeState)
 router.route('/updateState/:id').patch(authenticateUser, checkPermission("admin"), updateStateInfo)
+
+
+//uploadImage 
+
+router.route('/uploadImage').post(authenticateUser, checkPermission("admin"), multer.single('image'), uploadPictures)
 
 
 

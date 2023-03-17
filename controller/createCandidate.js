@@ -3,6 +3,7 @@ const Election = require('../model/ElectionsSchema')
 const { StatusCodes } = require('http-status-codes')
 const customError = require('../errors')
 const response = require('../response/response')
+const cloudinary = require('cloudinary')
 
 
 const registerCandidate = async (req, res) => {
@@ -62,7 +63,33 @@ const deleteCandidate = async (req, res) => {
 
     await user.remove();
 
-    res.status(StatusCodes.Ok).json(response({ msg: `${user.candidateName} has been delected successfully` }))
+    res.status(StatusCodes.OK).json(response({ msg: `${user.candidateName} has been delected successfully` }))
+}
+
+
+
+const uploadPictures = async (req, res) => {
+    try {
+
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            use_filename: true,
+            folder: 'Candidate-pictures'
+        })
+
+        const user = new candidateUser({
+            candidateImage: result.secure_url,
+        })
+
+        await user.save()
+
+        res.status(StatusCodes.OK).json(responses({ msg: 'File have been uploaded successfully' }))
+
+    } catch (error) {
+        console.log(error)
+
+        res.status(StatusCodes.OK).json(responses({ msg: 'Looks like something went wrong', data: error.message }))
+    }
+
 }
 
 
@@ -71,5 +98,6 @@ module.exports = {
     getAllCandidate,
     getSingleCandidate,
     updateCandidateInfo,
+    uploadPictures,
     deleteCandidate
 }

@@ -16,7 +16,6 @@ const xss = require('xss-clean')
 
 const connectDb = require('./db/connect')
 const route = require('./Router/userrouter')
-const pages = require('./Router/pages')
 const settingsRoute = require('./Router/settings')
 const candidateReg = require('./Router/candidates')
 
@@ -50,7 +49,7 @@ app.use(xss())
 app.use('/api/v1', candidateReg)
 app.use('/api/v1', settingsRoute)
 app.use('/api/v1', route)
-app.use('/user', pages)
+
 
 
 

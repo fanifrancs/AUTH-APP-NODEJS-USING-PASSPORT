@@ -43,7 +43,7 @@ const getAllElections = async (req, res) => {
         const endDate = checkExpired(el.endAt)
 
         return {
-            id:el._id,
+            id: el._id,
             Name: el.electionName,
             Start: convertedDatetoString(el.beginAt),
             End: convertedDatetoString(el.endAt),
@@ -52,7 +52,7 @@ const getAllElections = async (req, res) => {
     })
 
 
-    res.status(StatusCodes.OK).json(response({data:displayElection}))
+    res.status(StatusCodes.OK).json(response({ data: displayElection }))
 }
 
 
@@ -82,10 +82,14 @@ const removeElection = async (req, res) => {
 }
 
 
+
+
+
 module.exports = {
     AddElection,
     getAllElections,
     getSingleElection,
     updateElection,
-    removeElection
+    removeElection,
+   
 }
