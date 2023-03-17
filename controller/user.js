@@ -10,7 +10,6 @@ const { createTokenUser, attachCookiesToResponse } = require('../utils/index')
 
 module.exports = {
 
-
     registerUser: async (req, res) => {
 
         const { name, email, password, password2, state, country, NIN } = req.body
@@ -42,7 +41,7 @@ module.exports = {
 
         const user = await User.create({ name, email, password, role, state, country, NIN, tokenVerification })
         // verify
-        res.status(StatusCodes.OK).json(response({ msg: `${user.name} have been logged in successfully` }))
+        res.status(StatusCodes.OK).json(response({ msg: `${user.name} have been registered in successfully` }))
 
     },
 

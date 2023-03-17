@@ -6,7 +6,6 @@ const { StatusCodes } = require('http-status-codes')
 const Candidate = require('../model/CandidtaeReg')
 
 
-
 const oyaVote = async (req, res) => {
 
     const { candidateId, electionType } = req.body
@@ -47,7 +46,7 @@ const oyaVote = async (req, res) => {
     res.status(StatusCodes.CREATED).json(response({ msg: 'Congratulations you have voted successfully' }))
 
 
-}
+};
 
 const countVote = async (req, res) => {
     try {
@@ -72,10 +71,7 @@ const countVote = async (req, res) => {
 };
 
 
-
 module.exports = {
     oyaVote,
     countVote
 }
-
-

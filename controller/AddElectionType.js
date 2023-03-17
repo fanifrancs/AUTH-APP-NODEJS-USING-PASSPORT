@@ -82,14 +82,11 @@ const removeElection = async (req, res) => {
 }
 
 
-
-
-
 module.exports = {
     AddElection,
     getAllElections,
     getSingleElection,
     updateElection,
     removeElection,
-   
+
 }

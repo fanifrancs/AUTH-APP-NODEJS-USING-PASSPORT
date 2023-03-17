@@ -44,9 +44,6 @@ const updatePassword = async (req, res) => {
 }
 
 
-
-
-
 module.exports = {
     updateUser,
     updatePassword

@@ -82,12 +82,12 @@ const uploadPictures = async (req, res) => {
 
         await user.save()
 
-        res.status(StatusCodes.OK).json(responses({ msg: 'File have been uploaded successfully' }))
+        res.status(StatusCodes.OK).json(response({ msg: 'File have been uploaded successfully' }))
 
     } catch (error) {
         console.log(error)
 
-        res.status(StatusCodes.OK).json(responses({ msg: 'Looks like something went wrong', data: error.message }))
+        res.status(StatusCodes.OK).json(response({ msg: 'Looks like something went wrong', data: error.message }))
     }
 
 }

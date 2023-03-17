@@ -4,7 +4,6 @@ const { StatusCodes } = require('http-status-codes')
 const response = require('../response/response')
 
 
-
 const AddStates = async (req, res) => {
 
     const { countryName, stateName } = req.body
@@ -52,7 +51,6 @@ const removeState = async (req, res) => {
 
 
 }
-
 
 
 module.exports = {
