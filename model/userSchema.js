@@ -4,49 +4,49 @@ const validator = require('validator')
 
 
 const userSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:[true,'please provide name'],
-        minlenght:6,
-        maxlength:50
+    name: {
+        type: String,
+        required: [true, 'please provide name'],
+        minlenght: 6,
+        maxlength: 50
     },
-    email:{
-        type:String,
-        required:[true,'please provide email'],
-        unique:true,
-        validate:{
-            validator:validator.isEmail,
-            message:'please provide valid Email'
+    email: {
+        type: String,
+        required: [true, 'please provide email'],
+        unique: true,
+        validate: {
+            validator: validator.isEmail,
+            message: 'please provide valid Email'
         }
     },
-    password:{
-        type:String,
-        required:[true,'please provide password'],
-        minlenght:6
+    password: {
+        type: String,
+        required: [true, 'please provide password'],
+        minlenght: 6
     },
-    role:{
-        type:String,
-        enum:['admin','user'],
-        default:'user'
+    role: {
+        type: String,
+        enum: ['admin', 'user'],
+        default: 'user'
     },
     country: {
-        type:mongoose.Types.ObjectId,
-        ref:'State',
-        default:true
+        type: String,
+        required: true,
+
     },
     state: {
-        type:String,
-        required:true,
+        type: String,
+        required: true,
     },
-  
-    NIN:{
-        type:String,
-        required:true,
-        unique:true
+
+    NIN: {
+        type: String,
+        required: true,
+        unique: true
     },
-    verificationToken:String,
-    
-    verified:Date,
+    verificationToken: String,
+
+    verified: Date,
 });
 
 
@@ -65,9 +65,9 @@ userSchema.methods.validatePassword = async function (password) {
 
 
 // isVerified:{
-    //     type:Boolean,
-    //     default:false
-    // },
+//     type:Boolean,
+//     default:false
+// },
 
 
 module.exports = mongoose.model('UserSchema', userSchema)
