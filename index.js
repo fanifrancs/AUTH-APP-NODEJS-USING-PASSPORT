@@ -54,18 +54,15 @@ app.use('/api/v1', route)
 
 
 const start = async () => {
-    try {
-        await connectDb(process.env.MONGO_URI)
 
-    } catch (error) {
+    await connectDb(process.env.MONGO_URI)
 
-        console.log(error)
-    }
+
 
 }
 
 start().then(() => {
-
+    
     app.listen(port, () => console.log(`app is listening on port ${port}`))
 })
 

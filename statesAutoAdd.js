@@ -6,7 +6,8 @@ const jsonFile = require('./data.json')
 
 const start = async () => {
     try {
-        await connectDb(process.env.MONGO_URI)
+        await connectDb('mongodb://0.0.0.0:27017/AUTH_NODE')
+    
         await State.create(jsonFile)
         console.log('success added the files')
         process.exit(0)
