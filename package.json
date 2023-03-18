@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",  
+    "start": "node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js"
   },
   "repository": {
@@ -50,5 +50,9 @@
   },
   "engines": {
     "node": "14.x"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.21"
   }
 }
