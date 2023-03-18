@@ -48,9 +48,6 @@
     "validator": "^13.9.0",
     "xss-clean": "^0.1.1"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.21"
-  },
   "engines": {
     "node": "14.x"
   }
