@@ -41,11 +41,16 @@ app.use(rateLimit({
 
 
 app.use(cookies(process.env.JWT_SECRET))
-app.use(cors())
 app.use(helmet())
 app.use(xss())
 
 //route
+
+app.use(cors({
+  origin:true,
+  credentials:true
+}))
+
 app.use('/api/v1', candidateReg)
 app.use('/api/v1', settingsRoute)
 app.use('/api/v1', route)
