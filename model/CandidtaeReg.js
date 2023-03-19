@@ -13,7 +13,7 @@ const candidateRegistration = new mongoose.Schema({
         min: 5,
         maxlength: 20
     },
-    candidateImage: {
+    image: {
         type: String,
         default: '/uploads/example.jpeg'
     },

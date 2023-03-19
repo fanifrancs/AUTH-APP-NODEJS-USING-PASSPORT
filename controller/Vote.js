@@ -50,7 +50,7 @@ const oyaVote = async (req, res) => {
 
 const countVote = async (req, res) => {
     try {
-        const candidates = await Candidate.find({}, '_id partyName candidateImage');
+        const candidates = await Candidate.find({}, '_id partyName image');
         const voteCounts = {};
 
         for (const candidate of candidates) {
@@ -59,7 +59,7 @@ const countVote = async (req, res) => {
             voteCounts[candidateId] = {
                 voteCount,
                 partyName: candidate.partyName,
-                image: candidate.candidateImage
+                image: candidate.image
             };
         }
 

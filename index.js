@@ -13,6 +13,7 @@ const morgan = require('morgan')
 const cookies = require('cookie-parser')
 const rateLimit = require('express-rate-limit')
 const xss = require('xss-clean')
+const cloudinary = require('cloudinary').v2
 
 const connectDb = require('./db/connect')
 const route = require('./Router/userrouter')
@@ -26,6 +27,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.set('view engine', 'ejs')
+
+
+cloudinary.config({
+  cloud_name:process.env.CLOUD_NAME,
+  api_key:process.env.CLOUD_API_KEY,
+  api_secret:process.env.CLOUD_API_SECRET
+})
 
 
 if (process.env.NODE_ENV === 'development') {

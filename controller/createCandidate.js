@@ -3,14 +3,47 @@ const Election = require('../model/ElectionsSchema')
 const { StatusCodes } = require('http-status-codes')
 const customError = require('../errors')
 const response = require('../response/response')
-const cloudinary = require('cloudinary')
+const cloudinary = require('cloudinary').v2
 
 
 const registerCandidate = async (req, res) => {
 
-    const regCan = await candidateUser.create(req.body);
+    const { candidateName, partyName, electionType } = req.body
 
-    res.status(StatusCodes.CREATED).json(response({ msg: `${regCan.candidateName} has been added successfully` }))
+    if (!candidateName || !partyName || !electionType) {
+
+        throw new customError.BadRequestError('Empty filed please provide valid credentials')
+    }
+
+    const imagePath = req.file.path
+
+    console.log(req.file)
+
+
+    const result = await cloudinary.uploader.upload(imagePath, {
+        folder: 'CandidateFilesPhoto',
+        use_filename: true
+    },(error) => {
+        if(error){
+            throw new customError.BadRequestError('There is a problem with uploading your file')
+        }
+    });
+
+    const candidate = {
+        candidateName: candidateName,
+        partyName: partyName,
+        image: result.secure_url,
+        electionType: electionType
+      };
+
+
+
+    await candidateUser.create(candidate)
+
+    res.status(StatusCodes.CREATED).json(response({ msg: `${candidate.candidateName} has been added successfully` }));
+
+
+
 
 }
 
@@ -68,29 +101,7 @@ const deleteCandidate = async (req, res) => {
 
 
 
-const uploadPictures = async (req, res) => {
-    try {
 
-        const result = await cloudinary.uploader.upload(req.file.path, {
-            use_filename: true,
-            folder: 'Candidate-pictures'
-        })
-
-        const user = new candidateUser({
-            candidateImage: result.secure_url,
-        })
-
-        await user.save()
-
-        res.status(StatusCodes.OK).json(response({ msg: 'File have been uploaded successfully' }))
-
-    } catch (error) {
-        console.log(error)
-
-        res.status(StatusCodes.OK).json(response({ msg: 'Looks like something went wrong', data: error.message }))
-    }
-
-}
 
 
 module.exports = {
@@ -98,6 +109,8 @@ module.exports = {
     getAllCandidate,
     getSingleCandidate,
     updateCandidateInfo,
-    uploadPictures,
     deleteCandidate
 }
+
+
+
