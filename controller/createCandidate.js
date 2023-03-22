@@ -10,7 +10,7 @@ const registerCandidate = async (req, res) => {
 
     const { candidateName, partyName, electionType } = req.body
 
-    if (!candidateName || !partyName || !electionType) {
+    if (!candidateName || !partyName) {
         res.status(StatusCodes.BAD_REQUEST).json(response({
             msg: 'Empty filed please provide valid credentials',
             status: StatusCodes.BAD_REQUEST
@@ -48,8 +48,6 @@ const registerCandidate = async (req, res) => {
         image: result.secure_url,
         electionType: electionType
     };
-
-
 
     await candidateUser.create(candidate)
 

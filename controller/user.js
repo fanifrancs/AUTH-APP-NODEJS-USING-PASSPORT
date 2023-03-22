@@ -137,7 +137,7 @@ module.exports = {
         //   }
 
 
-        res.status(StatusCodes.OK).json(response({ data: tokenuser }))
+        res.status(StatusCodes.OK).json(response({ msg: tokenuser }))
 
     },
 

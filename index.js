@@ -55,7 +55,7 @@ app.use(xss())
 //route
 
 app.use(cors({
-  origin:true,
+  origin:'https://localhost:3000',
   credentials:true
 }))
 
