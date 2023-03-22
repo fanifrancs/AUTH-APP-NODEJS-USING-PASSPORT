@@ -12,7 +12,10 @@ const oyaVote = async (req, res) => {
 
     if (!candidateId || !electionType) {
 
-        throw new customError.NotFoundError('please provide valid credentials')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'Please provide valid credentials',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     req.body.user = req.user.userId
@@ -20,13 +23,19 @@ const oyaVote = async (req, res) => {
     const checkCandidate = await Candidate.findOne({ candidateId })
 
     if (!checkCandidate) {
-        throw new customError.NotFoundError('Oops, there is no candidate found')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'Oops, there is no candidate found',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     const hasVoted = await Voting.findOne({ user: req.user.userId })
 
     if (hasVoted) {
-        throw new customError.NotFoundError('You have already voted')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'User have already voted',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     const user = await User.findOne({ _id: req.user.userId })

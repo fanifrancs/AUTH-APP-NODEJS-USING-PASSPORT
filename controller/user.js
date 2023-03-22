@@ -17,16 +17,25 @@ module.exports = {
         const chechUser = await User.findOne({ email })
 
         if (chechUser) {
-            throw new customError.BadRequestError('user email already exists')
+            res.status(StatusCodes.BAD_REQUEST).json(response({
+                msg: 'User already exists',
+                status: StatusCodes.BAD_REQUEST
+            }))
         }
 
         if (!name || !email || !password || !password2 || !state || !country || !NIN) {
-            throw new customError.BadRequestError('please provide valid credentials')
+            res.status(StatusCodes.BAD_REQUEST).json(response({
+                msg: 'Please provide valid credentials',
+                status: StatusCodes.BAD_REQUEST
+            }))
         }
 
         if (password !== password2) {
 
-            throw new customError.BadRequestError('please provide valid credentials')
+            res.status(StatusCodes.BAD_REQUEST).json(response({
+                msg: 'Please provide valid credentials',
+                status: StatusCodes.BAD_REQUEST
+            }))
 
         }
 
@@ -52,13 +61,19 @@ module.exports = {
         const user = await User.findOne({ email })
 
         if (!user) {
-            throw new customError.BadRequestError('There is no user with this email')
+            res.status(StatusCodes.BAD_REQUEST).json(response({
+                msg: 'There is no user with this email',
+                status: StatusCodes.BAD_REQUEST
+            }))
         }
 
         const checkpassword = await user.validatePassword(password)
 
         if (!checkpassword) {
-            throw new customError.BadRequestError('please provide a valid password')
+            res.status(StatusCodes.BAD_REQUEST).json(response({
+                msg: 'Please provide a valid password',
+                status: StatusCodes.BAD_REQUEST
+            }))
         }
 
 
@@ -76,7 +91,10 @@ module.exports = {
             const { isValid } = checkToken
 
             if (!isValid) {
-                throw new customError.UnauthenticatedError('you are verified yet to loggin please try again')
+                res.status(StatusCodes.BAD_REQUEST).json(response({
+                    msg: 'you are not verified yet, please login',
+                    status: StatusCodes.NOT_FOUND
+                }))
             }
 
             refreshToken = checkToken.refreshToken
@@ -99,19 +117,19 @@ module.exports = {
         }
 
 
-    
+
 
 
         await tokenModel.create(tokenUser)
         attachCookiesToResponse({ res, user: tokenuser, refreshToken })
-        
 
-          //Am coming back to it
+
+        //Am coming back to it
 
         // if (checkToken && checkToken.userAgent !== userAgent) {
 
         //     //sendMail
-            
+
         //     await tokenModel.updateOne(
         //       { user: user._id },
         //       { $set: { userAgent } }

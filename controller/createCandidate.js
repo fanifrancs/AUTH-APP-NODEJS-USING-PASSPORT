@@ -11,20 +11,33 @@ const registerCandidate = async (req, res) => {
     const { candidateName, partyName, electionType } = req.body
 
     if (!candidateName || !partyName || !electionType) {
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'Empty filed please provide valid credentials',
+            status: StatusCodes.BAD_REQUEST
+        }))
 
-        throw new customError.BadRequestError('Empty filed please provide valid credentials')
     }
 
     const imagePath = req.file.path
 
     console.log(req.file)
 
+    const maxSize = 1024 * 1024 * 5
+    const fileSize = req.file.size
+
+    if (fileSize > maxSize) {
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'file size threshold exceded, max 5mb',
+            status: StatusCodes.BAD_REQUEST
+        }))
+    }
+
 
     const result = await cloudinary.uploader.upload(imagePath, {
         folder: 'CandidateFilesPhoto',
         use_filename: true
-    },(error) => {
-        if(error){
+    }, (error) => {
+        if (error) {
             throw new customError.BadRequestError('There is a problem with uploading your file')
         }
     });
@@ -34,16 +47,13 @@ const registerCandidate = async (req, res) => {
         partyName: partyName,
         image: result.secure_url,
         electionType: electionType
-      };
+    };
 
 
 
     await candidateUser.create(candidate)
 
     res.status(StatusCodes.CREATED).json(response({ msg: `${candidate.candidateName} has been added successfully` }));
-
-
-
 
 }
 
@@ -64,7 +74,10 @@ const getSingleCandidate = async (req, res) => {
     const user = await candidateUser.findOne({ userId }) //.populate("votes")
 
     if (!user) {
-        throw new customError.NotFoundError(`user with id ${userId} not found`)
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'User credentials not found',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     res.status(StatusCodes.OK).json(response({ data: user }))
@@ -78,7 +91,10 @@ const updateCandidateInfo = async (req, res) => {
     const user = await candidateUser.findOneAndUpdate({ _id: userId }, req.body, { runValidators: true, new: true });
 
     if (!user) {
-        throw customError.NotFoundError('no candiddate to update')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'Candidate cannot be updated',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     res.status(StatusCodes.OK).json(response({ msg: `${user.candidateName} has been updated sucessfully` }))
@@ -91,7 +107,10 @@ const deleteCandidate = async (req, res) => {
     const user = await candidateUser.findByIdAndDelete({ userId })
 
     if (!user) {
-        throw new customError.NotFoundError('no candidate to delete')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'Candidate cannot be delete',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     await user.remove();

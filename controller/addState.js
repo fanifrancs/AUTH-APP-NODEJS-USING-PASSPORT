@@ -9,7 +9,10 @@ const AddStates = async (req, res) => {
     const { countryName, stateName } = req.body
 
     if (!countryName || !stateName) {
-        throw new customError.BadRequestError('please provide valid credentials')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'please provide countryName and stateName',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     const user = await State.create(req.body)
@@ -42,7 +45,10 @@ const removeState = async (req, res) => {
     const user = await State.findByIdAndDelete({ userId });
 
     if (!user) {
-        throw new customError.NotFoundError('no state to delete')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'State information not found',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     await user.remove()

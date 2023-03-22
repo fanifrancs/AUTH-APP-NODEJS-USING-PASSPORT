@@ -1,7 +1,7 @@
 
-module.exports = ({msg,data}) => {
+module.exports = ({msg, status}) => {
     return {
         msg,
-        data
+        status
     }
 }

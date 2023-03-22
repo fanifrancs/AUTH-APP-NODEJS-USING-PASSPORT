@@ -19,28 +19,31 @@ const updatePassword = async (req, res) => {
     const { oldPassword, newPassword } = req.body
 
     if (!oldPassword || !newPassword) {
-        throw new customError.BadRequestError('please input correct values')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'Please provide correct input fields',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     const verifedUser = await User.findOne({ _id: req.user.userId })
 
     const comparedPassword = await verifedUser.validatePassword(oldPassword)
 
-    if(comparedPassword){
+    if (comparedPassword) {
 
-      verifedUser.password = newPassword
+        verifedUser.password = newPassword
 
-      verifedUser.save()
+        verifedUser.save()
 
-      res.status(StatusCodes.OK).json(response({msg:'User password have been created'}))
+        res.status(StatusCodes.OK).json(response({ msg: 'User password have been created' }))
 
-    }else{
-       
-        res.status(StatusCodes.OK).json(response({msg:'An error occured while updating the user',data:error.message}))
+    } else {
+
+        res.status(StatusCodes.OK).json(response({ msg: 'An error occured while updating the user', data: error.message }))
 
     }
 
-  
+
 }
 
 

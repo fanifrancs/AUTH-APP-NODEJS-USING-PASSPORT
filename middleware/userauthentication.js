@@ -12,7 +12,10 @@ const authenticateUser = async (req, res, next) => {
             const payload = verifyToken(accessToken)
 
             if (!payload) {
-                throw new customError.UnauthenticatedError('Opps, you are not authenticated to access this route')
+                res.status(StatusCodes.BAD_REQUEST).json(response({
+                    msg: 'Opps, you are not authenticated to access this route',
+                    status: StatusCodes.BAD_REQUEST
+                }))
             }
 
             req.user = payload.user
@@ -29,7 +32,11 @@ const authenticateUser = async (req, res, next) => {
 
 
         if (!checkRefreshToken && !checkRefreshToken?.isValid) {
-            throw new customError.UnauthenticatedError('invalid authentication')
+            res.status(StatusCodes.BAD_REQUEST).json(response({
+                msg: 'invalid authentication',
+                status: StatusCodes.BAD_REQUEST
+            }))
+
         }
 
 
@@ -42,8 +49,10 @@ const authenticateUser = async (req, res, next) => {
     } catch (error) {
 
         console.log(error)
-
-        throw new customError.BadRequestError('something happened at the cookie verification')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'something happened at the cookie verification',
+            status: StatusCodes.BAD_REQUEST
+        }))
 
     }
 
@@ -54,8 +63,11 @@ const checkPermission = (...roles) => {
     return (req, res, next) => {
 
         if (!roles.includes(req.user.role)) {
+            res.status(StatusCodes.BAD_REQUEST).json(response({
+                msg: 'Invalid Authentication',
+                status: StatusCodes.BAD_REQUEST
+            }))
 
-            throw new customError.BadRequestError('Invalid Authentication')
         }
 
         next()

@@ -10,7 +10,10 @@ const AddElection = async (req, res) => {
     const { electionName, beginAt, endAt } = req.body
 
     if (!electionName || !beginAt || !endAt) {
-        throw new customError.NotFoundError('please provide valid credentials')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'Please provide valid credentials',
+            status: StatusCodes.BAD_REQUEST
+        }))
 
     }
 
@@ -27,7 +30,10 @@ const getSingleElection = async (req, res) => {
     const election = await ElectionType.findById(userId)
 
     if (!election) {
-        throw new customError.BadRequestError('No election to get')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'No election to get',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     req.status(StatusCodes.OK).json(response({ data: election }))
@@ -73,7 +79,10 @@ const removeElection = async (req, res) => {
     const removeProcess = await ElectionType.findByIdAndRemove(userId)
 
     if (!removeProcess) {
-        throw new customError.NotFoundError('No election to remove')
+        res.status(StatusCodes.BAD_REQUEST).json(response({
+            msg: 'No election to get',
+            status: StatusCodes.BAD_REQUEST
+        }))
     }
 
     await removeProcess.remove()
