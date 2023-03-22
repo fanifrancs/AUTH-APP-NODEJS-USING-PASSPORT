@@ -10,17 +10,10 @@ const registerCandidate = async (req, res) => {
 
     const { candidateName, partyName, electionType } = req.body
 
-    if (!candidateName || !partyName) {
-        res.status(StatusCodes.BAD_REQUEST).json(response({
-            msg: 'Empty filed please provide valid credentials',
-            status: StatusCodes.BAD_REQUEST
-        }))
-
-    }
 
     const imagePath = req.file.path
 
-    console.log(req.file)
+    //console.log(req.file)
 
     const maxSize = 1024 * 1024 * 5
     const fileSize = req.file.size
