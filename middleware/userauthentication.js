@@ -1,6 +1,7 @@
 const tokenModel = require('../model/token')
 const { verifyToken, attachCookiesToResponse } = require('../utils/index')
 const customError = require('../errors')
+const {StatusCodes} = require('http-status-codes')
 
 
 const authenticateUser = async (req, res, next) => {
