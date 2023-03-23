@@ -1,7 +1,7 @@
 const tokenModel = require('../model/token')
 const { verifyToken, attachCookiesToResponse } = require('../utils/index')
 const customError = require('../errors')
-const {StatusCodes} = require('http-status-codes')
+const { StatusCodes } = require('http-status-codes')
 const response = require('../response/response')
 
 
@@ -50,7 +50,7 @@ const authenticateUser = async (req, res, next) => {
 
     } catch (error) {
 
-        console.log(error)
+
         res.status(StatusCodes.BAD_REQUEST).json(response({
             msg: 'something happened at the cookie verification',
             status: StatusCodes.BAD_REQUEST
