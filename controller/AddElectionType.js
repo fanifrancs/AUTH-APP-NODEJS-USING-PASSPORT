@@ -57,8 +57,8 @@ const getAllElections = async (req, res) => {
         }
     })
 
-
-    res.status(StatusCodes.OK).json(response({ data: displayElection }))
+    console.log(displayElection)
+    res.status(StatusCodes.OK).json(response({ msg: displayElection }))
 }
 
 
