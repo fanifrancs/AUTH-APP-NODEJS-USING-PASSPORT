@@ -144,7 +144,7 @@ module.exports = {
 
 
     logout: async (req, res) => {
-        await tokenModel.findOneAndDelete(req.user.userId)
+        await tokenModel.findOneAndDelete({ user: req.user.userId })
 
         res.cookie('accessToken', 'logout', {
             httpOnly: true,
